@@ -159,7 +159,7 @@
         return this.status !== "LOADING";
       },
       submitButtonDisabled: function() {
-        return this.status === "INIT" || this.status === "LOADING";
+        return !!this.affiliateCode;
       }
     },
     methods: {
