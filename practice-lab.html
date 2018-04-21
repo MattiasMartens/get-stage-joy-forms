@@ -3,30 +3,40 @@
 <div id="app">
   <div v-if="status === 'SUCCESS'">
     <div id="thank-you" style="border: solid darkgrey 1px;padding: 10px;border-radius: 5px;">
-      <h2>Thank you for signing up for the Basic Beginners Package!</h2>
+      <h2>Thanks for signing up for Practice Lab!</h2>
 
-      <template v-if="payment === 'I\'ll use my card to pay with PayPal'">
+      <template v-if="payment === 'I\'ll use my card to pay with PayPal' && payPalValue">
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
           <input type="hidden" name="cmd" value="_s-xclick">
-          <input type="hidden" name="hosted_button_id" value="U44GZZNP529CU">
+          <input type="hidden" name="hosted_button_id" v-bind:value="payPalValue">
           <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
           <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
       </template>
       <template v-else-if="payment === 'I\'ll send an e-transfer to getstagejoy@gmail.com'">
         <p>
-          Please send your e-transfer of {{price}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo;!
+          Please send your e-transfer of {{prePayPrice}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo;!
         </p>
       </template>
       <template v-else-if="payment === 'I\'ll call Danielle at 778 235 7696 and process my credit card over the phone'">
         <p>
-          Call Danielle at (778) 235-7696 to process your payment of {{price}}.
+          Call Danielle at (778) 235-7696 to process your payment of {{prePayPrice}}.
         </p>
         <p>(If you fail to get through, please leave a message with your name, number, and the best time to call you back.)</p>
       </template>
       <template v-else-if="payment === 'I\'ll bring cash on the day'">
         <p>
-          Upon receipt of your in-person cash payment of {{price}}, we will send you a PDF receipt by e-mail.
+          Upon receipt of your in-person cash payment of {{cashPrice}}, we will send you a PDF receipt by e-mail.
+        </p>
+      </template>
+      <template v-else-if="payment === 'I have a coupon code for a free ticket'">
+        <p>
+          Your free ticket has been redeemed. If for any reason you are unable to use your free ticket, please let us know within 24 hours before the event.
+        </p>
+      </template>
+      <template v-else>
+        <p>
+          Your Practice Lab spot is secure.
         </p>
       </template>
 
@@ -39,7 +49,7 @@
       <em>Danielle Benzon and the team at Inspired Coaching</em>
     </div>
   </div>
-  <form action="https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=sub/bbp"
+  <form action="https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=sub/pl"
     method="get"
     v-on:submit.prevent="subForm"
     v-else
@@ -75,15 +85,14 @@
       </div>
     <div>
       <div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
-        <label class="wsite-form-label" for="input-404789709797203286">Please choose your Unleash Your Voice Workshop start date <span class="form-required">*</span></label>
+        <label class="wsite-form-label" for="input-404789709797203286">Please choose your Practice Lab Dates <span class="form-required">*</span></label>
         <div class="wsite-form-radio-container">
-            <select name="date" class="form-select" aria-required="true" required>
-              <option v-for="date in uyvEvents" :value="date.tag">
-                {{date.form}}
-              </option>
-            </select>
+          <div v-for="date in practiceLabEvents">
+            <input type="checkbox" v-model="practiceLabSignups" :value="date.tag" />
+            <label>{{date.form}}</label>
+          </div>
         </div>
-        <div id="instructions-Please choose your intro workshop dates" class="wsite-form-instructions" style="display:none;"></div>
+        <div id="instructions-Please choose your practice lab dates" class="wsite-form-instructions" style="display:none;"></div>
       </div>
     </div>
     <div>
@@ -91,15 +100,28 @@
         <label class="wsite-form-label" for="input-F">How would you like to pay the fee? <span class="form-required">*</span></label>
         <div class="wsite-form-radio-container">
             <select name="payment" class="form-select" aria-required="true" v-model="payment" required>
-              <option value="I'll use my card to pay with PayPal">I'll use my card to pay with PayPal</option>
-            	<option value="I'll send an e-transfer to getstagejoy@gmail.com">I'll send an e-transfer to getstagejoy@gmail.com</option>
-            	<option value="I'll call Danielle at 778 235 7696 and process my credit card over the phone">I'll call Danielle at 778 235 7696 and process my credit card over the phone</option>
-            	<option value="I'll bring cash on the day">I'll bring cash on the day</option>
-            	<option value="I have already paid">I have already paid</option>
+              <option v-if="practiceLabSignups.length < 4" value="I'll use my card to pay with PayPal">I will pre-pay {{prePayPrice}} by PayPal</option>
+            	<option value="I'll send an e-transfer to getstagejoy@gmail.com">I will pre-pay {{prePayPrice}} by e-transfer</option>
+            	<option value="I'll call Danielle at 778 235 7696 and process my credit card over the phone">I will call Danielle at 778 235 7696 and process my credit card payment of {{prePayPrice}} over the phone</option>
+            	<option value="I'll bring cash on the day">I'll bring {{cashPrice}} on the day{{practiceLabSignups.length > 1 ? " to each one" : ""}}</option>
+            	<option value="I have a coupon code for a free ticket">I have a coupon code for a free ticket</option>
+              <option value="I have a practice lab membership">I have a practice lab membership</option>
             </select>
         </div>
       </div>
     </div>
+    <div class="wsite-form-field" style="margin:5px 0px 5px 0px;" v-if="payment === 'I have a coupon code for a free ticket'">
+			<label class="wsite-form-label" for="input-G">Enter your coupon code: <span class="form-required">*</span></label>
+			<div class="wsite-form-input-container">
+				<input aria-required="true" required id="input-G" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" v-model="couponCode" name="couponCode">
+			</div>
+		</div>
+    <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
+			<label class="wsite-form-label" for="input-H">Any additional requests or comments?</label>
+			<div class="wsite-form-input-container">
+				<textarea aria-required="true" rows="6" id="input-H" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" v-model="notes" name="notes"></textarea>
+			</div>
+		</div>
     <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
 			<label class="wsite-form-label" for="input-G">Referred by / How did you hear about us? <span class="form-required">*</span></label>
 			<div class="wsite-form-input-container">
@@ -108,10 +130,12 @@
 		</div>
     <input type="hidden" v-model="referral" name="referral">
     <input type="hidden" name="affiliatecode" v-model="affiliateCode">
+    <div v-if="validation" id="validation" v-html="validation"></div>
     <span class="wsite-button" v-if="showSubmitButton">
 			<input type="submit" name="submit" class="wsite-button-inner" value="submit" :disabled="submitButtonDisabled" />
-		</span>
-    <span style="color: red" v-if="status==='ERROR'">Sorry, something went wrong. Please try again.</span>
+		</span><br />
+    <span style="color: red" v-if="status==='ERROR'">
+      {{errorMessage ? errorMessage : "Sorry, something went wrong. Please try again."}}</span>
     <div id="loading" data-text="Processing..." v-if="status==='LOADING'">Processing...</div>
   </form>
 </div>
@@ -147,32 +171,55 @@
     el: '#app',
     data: {
       referral: '',
-      uyvEvents: [],
+      practiceLabEvents: [],
+      practiceLabSignups: [],
       affiliateCode: '',
       status: "INIT",
       payment: "I\'ll use my card to pay with PayPal",
-      price: "$250"
+      onlinePrice: 25,
+      cashPriceStr: "$30",
+      couponCode: '',
+      errorMessage: ''
     },
     computed: {
       showSubmitButton: function() {
         return this.status !== "LOADING";
       },
       submitButtonDisabled: function() {
-        return this.status === "INIT" || this.status === "LOADING";
+        return this.status === "INIT" || this.status === "LOADING" || !this.practiceLabSignups.length ||
+          (this.payment === "I have a coupon code for a free ticket" && (!this.couponCode || this.practiceLabSignups.length > 1));
+      },
+      cashPrice: function() {
+        return this.practiceLabSignups.length ? this.cashPriceStr : "$0";
+      },
+      prePayPrice: function() {
+        return "$" + (this.onlinePrice * this.practiceLabSignups.length);
+      },
+      payPalValue: function() {
+        var values = [undefined, "L3SBVV7DGYMGG", "2AK7X8VHL2AVA", "N9KPE2L3QQ594"];
+        return this.practiceLabSignups.length < 4 && values[this.practiceLabSignups.length];
+      },
+      validation: function() {
+        if (this.payment === "I have a coupon code for a free ticket" && this.practiceLabSignups.length > 1) {
+          return "Coupons are only valid for a single Practice Lab ticket.";
+        } else if (this.practiceLabSignups > 3) {
+          return 'Signing up for more than 3 Practice Labs? Did you know that you can sign up for a 6-month maintenance package for the same price as 4 individual drop-ins? <a href="http://www.getstagejoy.com/Practice-Lab-Maintenance-Package.html">Click here</a>.';
+        }
       }
     },
     methods: {
-      uyvFetch(affiliateCode) {
+      practiceLabFetch(affiliateCode) {
         $.ajax({
-            url:"https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=uyvfetch",
+            url:"https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=practicelabfetch",
             type:'get',
             data: {affiliateCode: affiliateCode},
             success: (function(data) {
                data && data.affiliateName && (this.referral = data.affiliateName);
                data && data.affiliateName && (this.affiliateCode = affiliateCode);
-               data && data.uyvEvents && (this.uyvEvents = data.uyvEvents);
+               data && data.practiceLabEvents && (this.practiceLabEvents = data.practiceLabEvents);
+               this.errorMessage = "";
                this.status = "READY";
-             }).bind(this)
+           }).bind(this)
         });
       },
       subForm(e) {
@@ -184,12 +231,22 @@
           formData[i].name === "phone" && (formData[i].value = standardizePhone(formData[i].value));
         }
 
+        formData.push({name: "practiceLabSignups", value: this.practiceLabSignups.join(",")});
+
         $.ajax({
             url:url,
             type:'get',
             data:formData,
             success:(function(reply) {
               if (reply.error || reply.stack) {
+                this.status = "ERROR";
+              } else if (reply.result === "Failure") {
+                if (reply.reason === "NOT_FOUND") {
+                  this.errorMessage = "Sorry, your coupon code was not recognized. Please check your spelling and if it still doesn't work, contact us and together we'll figure it out.";
+                } else if (reply.reason === "USED") {
+                  this.errorMessage = "It appears that you have already used this coupon code. Each coupon code can only be used once. If this is a mistake, please contact us and together we'll figure it out."
+                }
+
                 this.status = "ERROR";
               } else {
                 this.status = "SUCCESS";
@@ -223,7 +280,7 @@
   })(jQuery);
 
   var affiliateCode = $.QueryString.referral;
-  app.uyvFetch(affiliateCode);
+  app.practiceLabFetch(affiliateCode);
 </script>
 <style>
   #loading {
