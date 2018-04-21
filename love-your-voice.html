@@ -1,0 +1,293 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<div id="app">
+  <div v-if="status === 'SUCCESS'">
+    <div id="thank-you" style="border: solid darkgrey 1px;padding: 10px;border-radius: 5px;">
+      <h2>Thank you for signing up for the Love Your Voice Package!</h2>
+
+      <template v-if="payment === 'I\'ll use my card to pay with PayPal'">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="XMY2X7J5645ZY">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+          <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+      </template>
+      <template v-else-if="payment === 'I\'ll send an e-transfer to getstagejoy@gmail.com'">
+        <p>
+          Please send your e-transfer of {{price}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo;!
+        </p>
+      </template>
+      <template v-else-if="payment === 'I\'ll call Danielle at 778 235 7696 and process my credit card over the phone'">
+        <p>
+          Call Danielle at (778) 235-7696 to process your payment of {{price}}.
+        </p>
+        <p>(If you fail to get through, please leave a message with your name, number, and the best time to call you back.)</p>
+      </template>
+      <template v-else-if="payment === 'I want to pay in installments'">
+        <p>
+          Call Danielle at (778) 235-7696 to set up your two installment payments of {{installmentPrice}}.
+        </p>
+        <p>(If you fail to get through, please leave a message with your name, number, and the best time to call you back.)</p>
+      </template>
+
+
+      <p>Need some stage joy tips right now? Read this post from my blog about how to best prepare yourself for success:</p>
+
+      <strong><a href="http://www.livingvoice.ca/blog/erase-the-scare-factor-5-preparation-easy-tips-to-reduce-stage-fright">Erase the Scare Factor - Tips to Reduce Stage Fright</a></strong>
+
+      <p>I look forward to connecting with you and creating a strategy for you to get the most out of the program!</p>
+
+      <em>Danielle Benzon and the team at Inspired Coaching</em>
+    </div>
+  </div>
+  <form action="https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=sub/lyv"
+    method="get"
+    v-on:submit.prevent="subForm"
+    v-else
+    id="basic-beginners-form">
+    <div><div class="wsite-form-field wsite-name-field" style="margin:5px 0px 5px 0px;">
+				<label class="wsite-form-label" for="input-A">Name <span class="form-required">*</span></label>
+				<div style="clear:both;"></div>
+				<div class="wsite-form-input-container wsite-form-left wsite-form-input-first-name">
+					<input aria-required="true" required id="input-A" class="wsite-form-input wsite-input" type="text" name="firstname">
+					<label class="wsite-form-sublabel" for="input-A">First</label>
+				</div>
+				<div class="wsite-form-input-container wsite-form-right wsite-form-input-last-name">
+					<input aria-required="true" required id="input-B" class="wsite-form-input wsite-input" type="text" name="lastname">
+					<label class="wsite-form-sublabel" for="input-B">Last</label>
+				</div>
+      </div>
+			<div style="clear:both;"></div></div>
+      <div>
+        <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
+  				<label class="wsite-form-label" for="input-C">Email <span class="form-required">*</span></label>
+  				<div class="wsite-form-input-container">
+  					<input aria-required="true" type="email" required id="input-C" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" name="email">
+  				</div>
+  			</div>
+      </div>
+      <div>
+        <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
+          <label class="wsite-form-label" for="input-D">Phone <span class="form-required">*</span></label>
+          <div class="wsite-form-input-container">
+            <input aria-required="true" type="tel" required id="input-D" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" name="phone" minlength="10" maxlength="20">
+          </div>
+        </div>
+      </div>
+    <div>
+      <div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+        <label class="wsite-form-label" for="input-404789709797203286">Please choose your Unleash Your Voice Workshop start date <span class="form-required">*</span></label>
+        <div class="wsite-form-radio-container">
+            <select name="uyvDate" class="form-select" aria-required="true" required>
+              <option v-for="date in uyvEvents" :value="date.tag">
+                {{date.form}}
+              </option>
+            </select>
+        </div>
+        <div id="instructions-Please choose your intro workshop dates" class="wsite-form-instructions" style="display:none;"></div>
+      </div>
+    </div>
+    <div>
+      <p><em>Note:</em> It is recommended, though not mandatory, that you take Unleash Your Voice before Love Your Voice.</p>
+      <div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+        <label class="wsite-form-label" for="input-404789709797203286">Please choose your Love Your Voice Workshop start date <span class="form-required">*</span></label>
+        <div class="wsite-form-radio-container">
+            <select name="lyvDate" class="form-select" aria-required="true" required>
+              <option v-for="date in lyvEvents" :value="date.tag">
+                {{date.form}}
+              </option>
+            </select>
+        </div>
+        <div id="instructions-Please choose your intro workshop dates" class="wsite-form-instructions" style="display:none;"></div>
+      </div>
+    </div>
+    <div>
+      <div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+        <label class="wsite-form-label" for="input-F">How would you like to pay the fee? <span class="form-required">*</span></label>
+        <div class="wsite-form-radio-container">
+            <select name="payment" class="form-select" aria-required="true" v-model="payment" required>
+              <option value="I'll use my card to pay with PayPal">I'll use my card to pay with PayPal</option>
+            	<option value="I'll send an e-transfer to getstagejoy@gmail.com">I'll send an e-transfer to getstagejoy@gmail.com</option>
+            	<option value="I'll call Danielle at 778 235 7696 and process my credit card over the phone">I'll call Danielle at 778 235 7696 and process my credit card over the phone</option>
+              <option value="I want to pay in installments">I want to pay in two installments of {{installmentPrice}}</option>
+            	<option value="I have already paid">I have already paid</option>
+            </select>
+        </div>
+      </div>
+    </div>
+    <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
+			<label class="wsite-form-label" for="input-G">Referred by / How did you hear about us? <span class="form-required">*</span></label>
+			<div class="wsite-form-input-container">
+				<input aria-required="true" required id="input-G" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" v-model="referral" :disabled="affiliateCode !== ''" name="referral">
+			</div>
+		</div>
+    <input type="hidden" v-model="referral" name="referral">
+    <input type="hidden" name="affiliatecode" v-model="affiliateCode">
+    <span class="wsite-button" v-if="showSubmitButton">
+			<input type="submit" name="submit" class="wsite-button-inner" value="submit" :disabled="submitButtonDisabled" />
+		</span>
+    <span style="color: red" v-if="status==='ERROR'">Sorry, something went wrong. Please try again.</span>
+    <div id="loading" data-text="Processing..." v-if="status==='LOADING'">Processing...</div>
+  </form>
+</div>
+<script>
+  // app states:
+  // "INIT" Page loaded, waiting for data from FormHandler
+  // "READY" User can submit form
+  // "LOADING" Waiting for reply from FormHandler
+  // "ERROR" Something went wrong, please try again
+  // "SUCCESS" Thank you for signing up!
+
+  function standardizePhone(nonstandardPhone) {
+   var phone = nonstandardPhone.replace(/[^0-9]/g, "");
+   (phone.length > 10) && (phone = phone.slice(phone.length - 10));
+   var indicesToInsertSpace = [phone.length - 7, phone.length - 4];
+
+   if (indicesToInsertSpace[0] > 0) {
+     return phone.slice(0, indicesToInsertSpace[0])
+       + " "
+       + phone.slice(indicesToInsertSpace[0], indicesToInsertSpace[1])
+       + " "
+       + phone.slice(indicesToInsertSpace[1], phone.length);
+   } else if (indicesToInsertSpace[1] > 0) {
+     return phone.slice(0, indicesToInsertSpace[1])
+       + " "
+       + phone.slice(indicesToInsertSpace[1], phone.length);
+   } else {
+     return phone;
+   }
+ }
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      referral: '',
+      uyvEvents: [],
+      lyvEvents: [],
+      affiliateCode: '',
+      status: "INIT",
+      payment: "I\'ll use my card to pay with PayPal",
+      price: "$525",
+      installmentPrice: "275"
+    },
+    computed: {
+      showSubmitButton: function() {
+        return this.status !== "LOADING";
+      },
+      submitButtonDisabled: function() {
+        return this.status === "INIT" || this.status === "LOADING";
+      }
+    },
+    methods: {
+      lyvFetch(affiliateCode) {
+        $.ajax({
+            url:"https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=lyvfetch",
+            type:'get',
+            data: {affiliateCode: affiliateCode},
+            success: (function(data) {
+              if (data) {
+               data.affiliateName && (this.referral = data.affiliateName);
+               data.affiliateName && (this.affiliateCode = affiliateCode);
+               data.uyvEvents && (this.uyvEvents = data.uyvEvents);
+               data.lyvEvents && (this.lyvEvents = data.lyvEvents);
+             }
+
+               this.status = "READY";
+             }).bind(this)
+        });
+      },
+      subForm(e) {
+        var url=$(e.target).closest('form').attr('action'),
+            formData=$(e.target).closest('form').serializeArray();
+        this.status = "LOADING";
+
+        for (i in formData) {
+          formData[i].name === "phone" && (formData[i].value = standardizePhone(formData[i].value));
+        }
+
+        $.ajax({
+            url:url,
+            type:'get',
+            data:formData,
+            success:(function(reply) {
+              if (reply.error || reply.stack) {
+                this.status = "ERROR";
+              } else {
+                this.status = "SUCCESS";
+              }
+            }).bind(this),
+            error:(function() {
+              this.status = "ERROR"
+            }).bind(this)
+        });
+      }
+    }
+  });
+
+  (function($) {
+      $.QueryString = (function(paramsArray) {
+          let params = {};
+
+          for (let i = 0; i < paramsArray.length; ++i)
+          {
+              let param = paramsArray[i]
+                  .split('=', 2);
+
+              if (param.length !== 2)
+                  continue;
+
+              params[param[0]] = decodeURIComponent(param[1].replace(/\+/g, " "));
+          }
+
+          return params;
+      })(window.location.search.substr(1).split('&'))
+  })(jQuery);
+
+  var affiliateCode = $.QueryString.referral;
+  app.lyvFetch(affiliateCode);
+</script>
+<style>
+  #loading {
+      position: relative;
+      display: inline-block;
+      color: rgba(0,0,0,0.5);
+      font-size: 1em;
+      background: rgba(100,149,237, 0.4);
+      top: 0;
+      padding: 9px;
+      font-family: sans-serif;
+      border-radius: 0 10px 10px 0;
+  }
+  #loading:before {
+      content: attr(data-text);
+      position: absolute;
+      overflow: hidden;
+      max-width: 15em;
+      white-space: nowrap;
+      color: #fff;
+      animation: loading 8s linear;
+  }
+  @keyframes loading {
+      0% {
+          max-width: 0;
+      }
+  }
+
+  #thank-you p, #thank-you {
+    font-size: 1rem;
+  }
+
+  @keyframes flash {
+      from {background-color: #0e8d6f;}
+  }
+
+  #thank-you {
+    animation: flash 500ms linear;
+    background-color: #eeecee;
+  }
+
+  #thank-you > * {
+    margin-bottom: 0.5rem;
+  }
+</style>
