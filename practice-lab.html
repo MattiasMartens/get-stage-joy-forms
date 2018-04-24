@@ -15,7 +15,7 @@
       </template>
       <template v-else-if="payment === 'I\'ll send an e-transfer to getstagejoy@gmail.com'">
         <p>
-          Please send your e-transfer of {{prePayPrice}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo;!
+          Please send your e-transfer of {{prePayPrice}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo; .
         </p>
       </template>
       <template v-else-if="payment === 'I\'ll call Danielle at 778 235 7696 and process my credit card over the phone'">
@@ -199,9 +199,9 @@
       },
       validation: function() {
         if (this.payment === "I have a coupon code for a free ticket" && this.practiceLabSignups.length > 1) {
-          return "Coupons are only valid for a single Practice Lab ticket.";
+          return "<p style='color:red !important;'>Coupons are only valid for a single Practice Lab ticket.<p>";
         } else if (this.practiceLabSignups > 3) {
-          return 'Signing up for more than 3 Practice Labs? Did you know that you can sign up for a 6-month maintenance package for the same price as 4 individual drop-ins? <a href="http://www.getstagejoy.com/Practice-Lab-Maintenance-Package.html">Click here</a>.';
+          return '<p>Signing up for more than 3 Practice Labs? Did you know that you can sign up for a 6-month maintenance package for the same price as 4 individual drop-ins? <a href="http://www.getstagejoy.com/Practice-Lab-Maintenance-Package.html">Click here</a>.</p>';
         }
       }
     },
@@ -322,5 +322,9 @@
 
   #thank-you > * {
     margin-bottom: 0.5rem;
+  }
+
+  input.wsite-button-inner[disabled="disabled"] {
+    color: rgba(0, 0, 0, 0.2) !important;
   }
 </style>

@@ -15,7 +15,7 @@
       </template>
       <template v-else-if="payment === 'I\'ll send an e-transfer to getstagejoy@gmail.com'">
         <p>
-          Please send your e-transfer of {{price}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo;!
+          Please send your e-transfer of {{price}} to <a href="mailto:getstagejoy@gmail.com">getstagejoy@gmail.com</a> with the password &ldquo;inspireme&rdquo; .
         </p>
       </template>
       <template v-else-if="payment === 'I\'ll call Danielle at 778 235 7696 and process my credit card over the phone'">
@@ -267,5 +267,9 @@
 
   #thank-you > * {
     margin-bottom: 0.5rem;
+  }
+
+  input.wsite-button-inner[disabled="disabled"] {
+    color: rgba(0, 0, 0, 0.2) !important;
   }
 </style>
