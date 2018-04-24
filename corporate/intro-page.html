@@ -1,0 +1,364 @@
+<link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed|Poppins" rel="stylesheet">
+<style>
+  .corporate-landing {
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    font-size: 1.2rem;
+  }
+
+  .corporate-landing > * {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .corporate-landing li, .corporate-landing p {
+    font-family: 'Poppins', sans-serif;
+    color: black;
+    font-size: 1rem;
+  }
+
+  .corporate-landing div {
+    float: left;
+  }
+
+  .corporate-landing-header {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 3em;
+  }
+
+  h1.main {
+    text-align: center;
+    color: white;
+    font-size: 170%;
+    line-height: 100%;
+    margin-bottom: 8px;
+    font-family: 'Lato', sans-serif;
+    background: rgb(212,62,71);
+    padding: 20px 0 0 0;
+    width: 100%;
+    font-size: 190%;
+  }
+
+  h2.sub-main {
+    margin: 0;
+    text-align: center;
+    color: rgb(120,120,120);
+    font-size: 100%;
+    font-weight: lighter;
+    font-size: 120%;
+  }
+
+  h2 {
+   font-family: 'Roboto Condensed', sans-serif;
+   font-size: 160%;
+  }
+
+  div.product-row {
+    clear: both;
+  }
+
+  div.product-row div {
+   float: left;
+  }
+
+  .product-graphic-column, .product-copy-column {
+    margin-bottom: 1em;
+  }
+
+  .corporate-landing .product-graphic-column {
+   width: 45%;
+   float: right;
+  }
+
+  .product-graphic-column div {
+   width: 100%;
+   height: 150px;
+   background-size: cover;
+   margin-left: 4px;
+  }
+
+  .product-row.odd .product-graphic-column {
+   float: left;
+  }
+
+  .product-row.odd .product-graphic-column div {
+   margin-left: 0;
+   float: right;
+  }
+
+  .product-row.odd .product-copy-column {
+   float: right;
+  }
+
+  .product-row.odd .product-copy-column div {
+   margin-left: 16px;
+  }
+
+  #presentations {
+   background-image: url("http://getstagejoy.com/uploads/9/5/3/0/9530150/editor/meeting.jpeg");
+  }
+
+  #sales {
+   background-image: url("http://getstagejoy.com/uploads/9/5/3/0/9530150/published/joseph-pearson-352151.jpeg?1518589308");
+  }
+
+  #teams-and-leadership {
+   background-image: url("http://getstagejoy.com/uploads/9/5/3/0/9530150/published/meeting2.jpeg?1518588897");
+  }
+
+  .corporate-landing .product-copy-column {
+   width: 55%;
+   display:flex;
+   align-items:center;
+  }
+
+  .product-copy h2 {
+   margin-top: 0;
+   margin-bottom: 0;
+  }
+
+  .product-row.last .product-graphic-column, .product-row.last .product-copy-column {
+   margin-bottom: 3em;
+  }
+
+  .call-to-action {
+   float: left;
+   width: 100%;
+   padding: 0;
+  }
+
+  .call-to-action > * {
+   position: relative;
+   width: 100%;
+   height: 84px;
+   border-top: 1px solid rgb(195,39,49);
+   border-bottom: 1px solid rgb(195,39,49);
+   margin-bottom: 2em;
+  }
+
+  .call-to-action-background {
+    width: 100%;
+    background-image: url("http://getstagejoy.com/uploads/9/5/3/0/9530150/published/business-team-meeting-boardroom-4460x4460.jpeg?1519521717");
+    height: 84px;
+    line-height: 84px;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    filter: blur(1px);
+  }
+
+  .call-to-action-foreground {
+    width: 100%;
+    height: 84px;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    color: white;
+  }
+
+  .call-to-action-text {
+    background: rgba(195,39,49,0.9);
+    height: 56px;
+    margin-top: 16px;
+    vertical-align: middle;
+    width: 100%;
+    line-height: 56px;
+    font-size: 200%;
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .section {
+   width: 80%;
+   margin-left: 10%;
+   max-width: 60rem;
+  }
+
+  .section h2 {
+   margin-left: 8px;
+  }
+
+  ul li {
+    list-style: none;
+    margin-bottom: 14px;
+  }
+
+  ul {
+   position: relative;
+   margin-left: 4rem;
+   padding-left: 0;
+  }
+
+  ul:before, ul:after {
+    content: "";
+    width: 3.6rem;
+    margin-right: 0.4rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -4rem;
+  }
+
+  ul:before {
+    width: 1px;
+    left: -0.4rem;
+    background-image: gradient(linear, 0 100%, 0 0, from(#777), to(transparent));
+    background-image: -webkit-linear-gradient(#777, transparent);
+    background-image: -moz-linear-gradient(#777, transparent);
+    background-image: -o-linear-gradient(#777, transparent);
+  }
+
+  ul:after {
+    right: -3px;
+    height: 1px;
+    background-image: gradient(linear, 0 0, 100% 0, from(transparent), to(#777));
+    background-image: -webkit-linear-gradient(left, transparent, #777);
+    background-image: -moz-linear-gradient(left, transparent, #777);
+    background-image: -o-linear-gradient(left, transparent, #777);
+  }
+
+  ul h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 130%;
+    margin: 0;
+  }
+
+  ul p {
+    margin: 0;
+  }
+
+  #action-button {
+   text-align: center;
+   margin-top: 0.5em;
+   margin-bottom: 1em;
+   width: 96%;
+   margin-left: 2%;
+   font-family: 'Lato', sans-serif;
+   font-size: 180%;
+   line-height: 100%;
+  }
+
+  #action-button .button {
+   padding: 15px 0;
+   border-radius: 8px;
+   background: rgb(212,62,71);
+   color: white;
+   width: 100%;
+  }
+
+  .contact {
+   background: #777;
+   width: 100%;
+   padding: 0;
+   font-size: 110%;
+   text-align: center;
+  }
+
+  .contact > p {
+    color: #c7c7c7;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .contact a {
+   color: white;
+  }
+
+  @media only screen and (max-width: 720px) {
+    /* 720 px determined experimentally */
+    .corporate-landing div.product-graphic-column, .corporate-landing div.product-copy-column {
+      width: 100%;
+    }
+
+    .call-to-action-text {
+      font-size: 100%;
+    }
+
+    .product-row.last .product-graphic-column {
+      margin-bottom: 0;
+    }
+  }
+</style>
+<div class="corporate-landing">
+  <div class="corporate-landing-header">
+    <h1 class="main">Business that breathes.</h1>
+    <h2 class="sub-main">Deepen your team’s interconnections with the power of clear, resonant speech.</h2>
+  </div>
+  <div class="product-row odd">
+    <div class="product-graphic-column">
+      <div id="presentations"></div>
+    </div>
+    <div class="product-copy-column">
+      <div class="product-copy">
+        <h2>Presentations</h2>
+        <p>
+          You know that the time of clients and colleagues is valuable. Develop the techniques of clear, powerful, and emotionally resonant speaking to ensure that every presentation is worth the investment.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="product-row">
+    <div class="product-graphic-column">
+        <div id="sales" /></div>
+    </div>
+    <div class="product-copy-column">
+      <div class="product-copy">
+        <h2>Sales</h2>
+        <p>
+          Key to maintaining strong sales figures in the long term is the formation of strong client relationships. Learn how to speak, and listen, to clients in a way that ensures client confidence and repeat sales.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="product-row odd last">
+    <div class="product-graphic-column">
+      <div id="teams-and-leadership"></div>
+    </div>
+    <div class="product-copy-column">
+      <div class="product-copy">
+        <h2>Teams and Leadership</h2>
+        <p>
+          Emotional connection is essential to keeping teammates cohesive in the face of uncertainty and hardship. Build the skillset to keep your team robust and integrated.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="call-to-action" id="lunch-and-learn">
+    <div>
+      <div class="call-to-action-background"></div>
+      <div class="call-to-action-foreground">
+        <div class="call-to-action-text">
+          Book Your Team’s Free Lunch and Learn
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" id="what-we-do">
+    <h2>What We Do</h2>
+    <p>At Inspired Coaching, we confront ineffective communication with a comprehensive training system that begins right at the source: the connection between the mind that forms the message, and the body that voices it with breath.</p>
+    <p>The limits of your voice-body instrument are the limits of your power as a speaker.</p>
+    <p>Our programs give clients an environment where they can break through their limits, with all the support they need to make those breakthroughs permanent.</p><!-- TODO Link to learn more -->
+  </div>
+  <div class="section" id="program-types">
+    <h2>What We Offer</h2>
+    <p>We offer training in three main skill categories: Presentations, Sales, and Teams and Leadership.</p>
+    <p>We are committed to providing you with a training package that is tailored to the needs of your business. Once we’ve gotten to know each other at a Lunch and Learn seminar, we may recommend one or more of the following training types:</p>
+    <ul>
+      <li>
+        <h3>Intensive</h3>
+        <p>A laser-focused session addressing a single skill or pain point. Could be half-day, full-day, or multiple days in duration.</p>
+      </li>
+      <li>
+        <h3>Comprehensive</h3>
+        <p>A recurring program to develop a whole suite of communication skills for your team. Sessions may be scheduled on a weekly, monthly, or quarterly basis and include a combination of intensives, consultations, and team exercises.</p>
+      </li>
+    </ul>
+  </div>
+  <div class="section" id="action-button">
+    <div class="button">Book a Lunch and Learn Today!</div>
+  </div>
+  <div class="contact">
+    <p>Want to know more? Contact Danielle at <a href="mailto:danielle@inspiredcoaching.ca">danielle@inspiredcoaching.ca</a></p>
+  </div>
+</div>
