@@ -234,7 +234,6 @@
    margin-top: 0.5em;
    margin-bottom: 1em;
    width: 96%;
-   margin-left: 2%;
    font-family: 'Lato', sans-serif;
    font-size: 180%;
    line-height: 100%;
@@ -362,3 +361,17 @@
     <p>Want to know more? Contact Danielle at <a href="mailto:danielle@inspiredcoaching.ca">danielle@inspiredcoaching.ca</a></p>
   </div>
 </div>
+<script>
+  (function attemptRemove() {
+    setTimeout(function() {
+      var wsiteFooterArr = document.getElementsByClassName('wsite-footer');
+      if (wsiteFooterArr.length) {
+        wsiteFooterArr[0].parentElement.remove();
+        removed = true;
+      } else {
+        attemptRemove();
+      }
+    },
+    10);
+  })();
+</script>

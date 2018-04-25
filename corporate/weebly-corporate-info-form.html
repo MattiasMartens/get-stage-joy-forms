@@ -1,0 +1,222 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<div id="app">
+  <div v-if="status === 'SUCCESS'">
+    <div id="thank-you" style="border: solid darkgrey 1px;padding: 10px;border-radius: 5px;">
+      <h1>Thank you!</h1>
+    </div>
+  </div>
+  <form action="https://script.google.com/macros/s/AKfycbxYxgMfMkR6hGI5UO2Gn8tg369oqsy_W41-olb0Do1y8gOjaNvm/dev?q=sub/lal"
+    method="get"
+    v-on:submit.prevent="subForm"
+    v-else
+    id="basic-beginners-form">
+    <label class="wsite-form-label wsite-form-fields-required-label"><span class="form-required">*</span> Indicates required field</label><div><div class="wsite-form-field wsite-name-field" style="margin:5px 0px 5px 0px;">
+    <label class="wsite-form-label" for="input-198876542769793873">Name <span class="form-required">*</span></label>
+    <div style="clear:both;"></div>
+		<div class="wsite-form-input-container wsite-form-left wsite-form-input-first-name">
+			<input aria-required="true" id="input-198876542769793873" class="wsite-form-input wsite-input" type="text" name="_u198876542769793873[first]">
+			<label class="wsite-form-sublabel" for="input-198876542769793873">First</label>
+		</div>
+		<div class="wsite-form-input-container wsite-form-right wsite-form-input-last-name">
+			<input aria-required="true" id="input-198876542769793873-1" class="wsite-form-input wsite-input" type="text" name="_u198876542769793873[last]">
+			<label class="wsite-form-sublabel" for="input-198876542769793873-1">Last</label>
+		</div>
+		<div id="instructions-198876542769793873" class="wsite-form-instructions" style="display:none;"></div>
+    <div style="clear:both;"></div>
+    <div>
+      <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
+    	  <label class="wsite-form-label" for="input-686862457302156719">Email <span class="form-required">*</span></label>
+    		<div class="wsite-form-input-container">
+    		  <input aria-required="true" id="input-686862457302156719" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" name="_u686862457302156719">
+    		</div>
+    		<div id="instructions-686862457302156719" class="wsite-form-instructions" style="display:none;"></div>
+    	</div>
+    </div>
+
+    <div>
+      <div class="wsite-form-field wsite-phone-field" style="margin-top:5px;">
+    	  <label class="wsite-form-label" for="input-532231531896311303">Phone Number <span class="form-required">*</span></label>
+    		<div style="clear:both;"></div>
+    		<div class="wsite-form-input-container wsite-form-left" style="margin-bottom:5px;">
+    			<input aria-required="true" id="input-532231531896311303" class="wsite-form-input wsite-input" type="text" name="_u532231531896311303[number]">
+    		</div>
+    		<div id="instructions-532231531896311303" class="wsite-form-instructions" style="display:none;"></div>
+    	</div>
+    	<div style="clear:both;"></div>
+    </div>
+
+    <div>
+      <div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+        <label class="wsite-form-label" for="input-404789709797203286">When is the best time for us to contact you? <span class="form-required">*</span></label>
+        <div class="wsite-form-radio-container">
+          <div v-for="date in practiceLabEvents">
+            <input type="checkbox" v-model="practiceLabSignups" :value="date.tag" />
+            <label>{{date.form}}</label>
+          </div>
+        </div>
+        <div id="instructions-Please choose your practice lab dates" class="wsite-form-instructions" style="display:none;"></div>
+      </div>
+        <div class="wsite-form-radio-container">
+          <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekday Mornings 9am - 12pm"><label for="checkbox-0-_u343164823101477550">Weekday Mornings 9am - 12pm</label></span>
+          <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekday Afternoons 12pm - 5pm"><label for="checkbox-0-_u343164823101477550">Weekday Afternoons 12pm - 5pm</label></span>
+          <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekday Evenings 5pm - 8pm"><label for="checkbox-0-_u343164823101477550">Weekday Evenings 5pm - 8pm</label></span>
+          <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekend Mornings 9am - 12pm"><label for="checkbox-0-_u343164823101477550">Weekend Mornings 9am - 12pm</label></span>
+          <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekend Afternoons 12pm - 6pm"><label for="checkbox-0-_u343164823101477550">Weekend Afternoons 12pm - 6pm</label></span>
+        </div>
+        <div id="instructions-When is the best time for us to contact you?" class="wsite-form-instructions" style="display:none;"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
+        <label class="wsite-form-label" for="input-262919932166534266">Please tell us a little bit about your company and how the power of authentic communication can make it stronger. <span class="form-required">*</span></label>
+        <div class="wsite-form-input-container">
+		        <textarea aria-required="true" id="input-262919932166534266" class="wsite-form-input wsite-input wsite-input-width-370px" name="_u262919932166534266" style="height: 200px"></textarea>
+        </div>
+    		<div id="instructions-262919932166534266" class="wsite-form-instructions" style="display:none;"></div>
+    	</div>
+    </div>
+    <span class="wsite-button">
+			<input type="submit" name="submit" class="wsite-button-inner" value="submit" :disabled="submitButtonDisabled" />
+		</span>
+    <span style="color: red" v-if="status==='ERROR'">Sorry, something went wrong. Please try again.</span>
+    <div id="loading" data-text="Processing..." v-if="status==='LOADING'">Processing...</div>
+  </form>
+</div>
+<script>
+// app states:
+// "INIT" Page loaded, waiting for data from FormHandler
+// "READY" User can submit form
+// "LOADING" Waiting for reply from FormHandler
+// "ERROR" Something went wrong, please try again
+// "SUCCESS" Thank you for signing up!
+
+function standardizePhone(nonstandardPhone) {
+ var phone = nonstandardPhone.replace(/[^0-9]/g, "");
+ (phone.length > 10) && (phone = phone.slice(phone.length - 10));
+ var indicesToInsertSpace = [phone.length - 7, phone.length - 4];
+
+ if (indicesToInsertSpace[0] > 0) {
+   return phone.slice(0, indicesToInsertSpace[0])
+     + " "
+     + phone.slice(indicesToInsertSpace[0], indicesToInsertSpace[1])
+     + " "
+     + phone.slice(indicesToInsertSpace[1], phone.length);
+ } else if (indicesToInsertSpace[1] > 0) {
+   return phone.slice(0, indicesToInsertSpace[1])
+     + " "
+     + phone.slice(indicesToInsertSpace[1], phone.length);
+ } else {
+   return phone;
+ }
+}
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    referral: '',
+    uyvEvents: [],
+    affiliateCode: '',
+    status: "INIT",
+    payment: "I\'ll use my card to pay with PayPal",
+    price: "$250"
+  },
+  computed: {
+    showSubmitButton: function() {
+      return this.status !== "LOADING";
+    },
+    submitButtonDisabled: function() {
+      return this.status === "INIT" || this.status === "LOADING";
+    }
+  },
+  methods: {
+    subForm(e) {
+      var url=$(e.target).closest('form').attr('action'),
+          formData=$(e.target).closest('form').serializeArray();
+      this.status = "LOADING";
+
+      for (i in formData) {
+        formData[i].name === "phone" && (formData[i].value = standardizePhone(formData[i].value));
+      }
+
+      $.ajax({
+          url:url,
+          type:'get',
+          data:formData,
+          success:(function(reply) {
+            if (reply.error || reply.stack) {
+              this.status = "ERROR";
+            } else {
+              this.status = "SUCCESS";
+            }
+          }).bind(this),
+          error:(function() {
+            this.status = "ERROR"
+          }).bind(this)
+      });
+    }
+  }
+});
+
+  (function attemptRemove() {
+    setTimeout(function() {
+      var wsiteFooterArr = document.getElementsByClassName('wsite-footer');
+      if (wsiteFooterArr.length) {
+        wsiteFooterArr[0].parentElement.remove();
+        removed = true;
+      } else {
+        attemptRemove();
+      }
+    },
+    10);
+  })();
+</script>
+<style>
+  #loading {
+      position: relative;
+      display: inline-block;
+      color: rgba(0,0,0,0.5);
+      font-size: 1em;
+      background: rgba(100,149,237, 0.4);
+      top: 0;
+      padding: 9px;
+      font-family: sans-serif;
+      border-radius: 0 10px 10px 0;
+  }
+  #loading:before {
+      content: attr(data-text);
+      position: absolute;
+      overflow: hidden;
+      max-width: 15em;
+      white-space: nowrap;
+      color: #fff;
+      animation: loading 8s linear;
+  }
+  @keyframes loading {
+      0% {
+          max-width: 0;
+      }
+  }
+
+  #thank-you p, #thank-you {
+    font-size: 1rem;
+  }
+
+  @keyframes flash {
+      from {background-color: #0e8d6f;}
+  }
+
+  #thank-you {
+    animation: flash 500ms linear;
+    background-color: #eeecee;
+  }
+
+  #thank-you > * {
+    margin-bottom: 0.5rem;
+  }
+
+  input.wsite-button-inner[disabled="disabled"] {
+    color: rgba(0, 0, 0, 0.2) !important;
+  }
+</style>
