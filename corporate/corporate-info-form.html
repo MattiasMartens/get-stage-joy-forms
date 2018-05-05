@@ -10,16 +10,16 @@
     method="get"
     v-on:submit.prevent="subForm"
     v-else
-    id="basic-beginners-form">
+    id="lunch-and-learn-form">
     <label class="wsite-form-label wsite-form-fields-required-label"><span class="form-required">*</span> Indicates required field</label><div><div class="wsite-form-field wsite-name-field" style="margin:5px 0px 5px 0px;">
     <label class="wsite-form-label" for="input-198876542769793873">Name <span class="form-required">*</span></label>
     <div style="clear:both;"></div>
 		<div class="wsite-form-input-container wsite-form-left wsite-form-input-first-name">
-			<input aria-required="true" id="input-198876542769793873" class="wsite-form-input wsite-input" type="text" name="_u198876542769793873[first]">
+			<input aria-required="true" id="input-198876542769793873" class="wsite-form-input wsite-input" type="text" name="firstname" required>
 			<label class="wsite-form-sublabel" for="input-198876542769793873">First</label>
 		</div>
 		<div class="wsite-form-input-container wsite-form-right wsite-form-input-last-name">
-			<input aria-required="true" id="input-198876542769793873-1" class="wsite-form-input wsite-input" type="text" name="_u198876542769793873[last]">
+			<input aria-required="true" id="input-198876542769793873-1" class="wsite-form-input wsite-input" type="text" name="lastname" required>
 			<label class="wsite-form-sublabel" for="input-198876542769793873-1">Last</label>
 		</div>
 		<div id="instructions-198876542769793873" class="wsite-form-instructions" style="display:none;"></div>
@@ -28,7 +28,7 @@
       <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
     	  <label class="wsite-form-label" for="input-686862457302156719">Email <span class="form-required">*</span></label>
     		<div class="wsite-form-input-container">
-    		  <input aria-required="true" id="input-686862457302156719" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" name="_u686862457302156719">
+    		  <input aria-required="true" id="input-686862457302156719" class="wsite-form-input wsite-input wsite-input-width-370px" type="text" name="email" required>
     		</div>
     		<div id="instructions-686862457302156719" class="wsite-form-instructions" style="display:none;"></div>
     	</div>
@@ -39,7 +39,7 @@
     	  <label class="wsite-form-label" for="input-532231531896311303">Phone Number <span class="form-required">*</span></label>
     		<div style="clear:both;"></div>
     		<div class="wsite-form-input-container wsite-form-left" style="margin-bottom:5px;">
-    			<input aria-required="true" id="input-532231531896311303" class="wsite-form-input wsite-input" type="text" name="_u532231531896311303[number]">
+    			<input aria-required="true" id="input-532231531896311303" class="wsite-form-input wsite-input" type="text" name="phone" required>
     		</div>
     		<div id="instructions-532231531896311303" class="wsite-form-instructions" style="display:none;"></div>
     	</div>
@@ -49,14 +49,6 @@
     <div>
       <div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
         <label class="wsite-form-label" for="input-404789709797203286">When is the best time for us to contact you? <span class="form-required">*</span></label>
-        <div class="wsite-form-radio-container">
-          <div v-for="date in practiceLabEvents">
-            <input type="checkbox" v-model="practiceLabSignups" :value="date.tag" />
-            <label>{{date.form}}</label>
-          </div>
-        </div>
-        <div id="instructions-Please choose your practice lab dates" class="wsite-form-instructions" style="display:none;"></div>
-      </div>
         <div class="wsite-form-radio-container">
           <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekday Mornings 9am - 12pm"><label for="checkbox-0-_u343164823101477550">Weekday Mornings 9am - 12pm</label></span>
           <span class="form-radio-container"><input type="checkbox" v-model="availabilities" value="Weekday Afternoons 12pm - 5pm"><label for="checkbox-0-_u343164823101477550">Weekday Afternoons 12pm - 5pm</label></span>
@@ -70,15 +62,15 @@
 
     <div>
       <div class="wsite-form-field" style="margin:5px 0px 5px 0px;">
-        <label class="wsite-form-label" for="input-262919932166534266">Please tell us a little bit about your company and how the power of authentic communication can make it stronger. <span class="form-required">*</span></label>
+        <label class="wsite-form-label" for="input-262919932166534266">Please tell us a little bit about your company and where you'd like us to start. <span class="form-required">*</span></label>
         <div class="wsite-form-input-container">
-		        <textarea aria-required="true" id="input-262919932166534266" class="wsite-form-input wsite-input wsite-input-width-370px" name="_u262919932166534266" style="height: 200px"></textarea>
+		        <textarea aria-required="true" id="input-262919932166534266" class="wsite-form-input wsite-input wsite-input-width-370px" name="notes" style="height: 200px" required></textarea>
         </div>
     		<div id="instructions-262919932166534266" class="wsite-form-instructions" style="display:none;"></div>
     	</div>
     </div>
     <span class="wsite-button">
-			<input type="submit" name="submit" class="wsite-button-inner" value="submit" :disabled="submitButtonDisabled" />
+			<input type="submit" name="submit" class="wsite-button-inner" value="submit"/>
 		</span>
     <span style="color: red" v-if="status==='ERROR'">Sorry, something went wrong. Please try again.</span>
     <div id="loading" data-text="Processing..." v-if="status==='LOADING'">Processing...</div>
@@ -115,12 +107,8 @@ function standardizePhone(nonstandardPhone) {
 var app = new Vue({
   el: '#app',
   data: {
-    referral: '',
-    uyvEvents: [],
-    affiliateCode: '',
     status: "INIT",
-    payment: "I\'ll use my card to pay with PayPal",
-    price: "$250"
+    availabilities: []
   },
   computed: {
     showSubmitButton: function() {
@@ -139,6 +127,8 @@ var app = new Vue({
       for (i in formData) {
         formData[i].name === "phone" && (formData[i].value = standardizePhone(formData[i].value));
       }
+
+      formData.push({name: "availabilities", value: this.availabilities.join(",")});
 
       $.ajax({
           url:url,
